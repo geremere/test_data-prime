@@ -1,18 +1,17 @@
 import React, {Component} from "react";
 import style from "./MainPage.module.css"
+import PlotSVG from "./PlotSVG";
+import PlotCanvas from "./PlotCanvas";
 
 class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            countOfDots: 10,
-            dots:[],
-            lines:[]
+            countOfDots: 10
         };
         this.handleCountOfDotsChange = this.handleCountOfDotsChange.bind(this);
         this.handleCountOfDots = this.handleCountOfDots.bind(this);
         this.handleChoiceClick = this.handleChoiceClick.bind(this);
-        this.handleUpdatePlot=this.handleUpdatePlot.bind(this);
     }
 
     async handleCountOfDotsChange(event) {
@@ -45,35 +44,7 @@ class MainPage extends Component {
         }
 
     }
-    async handleUpdatePlot(){
 
-        let dots=[];
-        for (let i = 0; i < this.state.countOfDots; i++) {
-            dots.push(
-                <circle cx={25 + (800 / this.state.countOfDots) * i} cy={Math.random() * (480)+10} r="5" stroke="black" fill="black"/>
-            );
-        }
-        debugger;
-        let lines = dots.map((item, index) => {
-            if (index != this.state.countOfDots - 1) {
-                const points = item.props.cx + " " + item.props.cy + " " + dots[index + 1].props.cx + " " + dots[index + 1].props.cy;
-                return (
-                    <polyline points={points}
-                              stroke="black"
-                              fill="none"/>
-                )
-            }
-        });
-        debugger
-        await this.setState({
-            dots:dots,
-            lines:lines
-        });
-        debugger;
-    }
-    componentDidMount() {
-        this.handleUpdatePlot();
-    }
 
     render() {
         let dots = this.state.countOfDots;
@@ -97,7 +68,8 @@ class MainPage extends Component {
                     </div>
                     {/*this block for plot. It have parameters from input field*/}
                     <div id="plot" className={style.plot}>
-                        <PlotSVG dots={this.state.dots} lines={this.state.lines} handleUpdatePlot={this.handleUpdatePlot}/>
+                        {/*<PlotSVG num={this.state.countOfDots}/>*/}
+                        <PlotCanvas num={this.state.countOfDots}/>
                     </div>
                 </div>
             </div>
@@ -114,26 +86,6 @@ function InputFields() {
 
 }
 
-function PlotSVG(props) {
 
-    return (
-        <svg height="500" width="800" className={style.plotDetails} onClick={props.handleUpdatePlot}>
-
-            <polyline
-                points=" 5 5  5 495"
-                stroke="black"
-                fill="none"/>
-
-            <polyline
-                points=" 5 495 795 495"
-                stroke="black"
-                fill="none"/>
-            {/*<circle cx="10" cy="10" stroke="gray" fill="gray"/>*/}
-            {props.dots}
-            {props.lines}
-
-        </svg>
-    )
-}
 
 export default MainPage;

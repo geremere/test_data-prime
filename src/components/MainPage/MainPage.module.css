@@ -1,4 +1,4 @@
-.mainWrapper{
+.mainWrapper {
     width: 100%;
     height: 100vh;
     min-width: 1200px;
@@ -6,11 +6,11 @@
     background-color: #737373;
 }
 
-.headText{
+.headText {
     font-size: 25px;
 }
 
-.contentWrapper{
+.contentWrapper {
     width: 80%;
     height: auto;
     padding: 15px;
@@ -19,12 +19,12 @@
     margin-top: 12.5vh;
 }
 
-.inputFields{
+.inputFields {
     display: none;
 
 }
 
-.countOfDots{
+.countOfDots {
     border: none;
     text-decoration: none;
     background-color: rgba(248, 248, 248, 0.08);
@@ -39,7 +39,7 @@
     outline: none;
 }
 
-.countOfDots::placeholder{
+.countOfDots::placeholder {
     color: black;
 }
 
@@ -66,17 +66,34 @@
     border: 1px solid rgba(90, 90, 90, 0.51);
     outline: none;
 }
-.choice:hover{
+
+.choice:hover {
     background-color: rgba(128, 89, 88, 0.5) !important;
 }
 
-.enter:hover{
+.enter:hover {
     background-color: rgba(115, 115, 115, 0.65);
 }
-.plot{
+
+.plot {
     display: block;
 }
-.plotDetails{
+
+.plotDetails {
     position: relative;
     border: 1px solid red;
+    transition: all 5s ease-in-out;
+    -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 1s ease-in-out; /** Firefox **/
+    -o-transition: all 1s ease-in-out;
 }
+
+.point {
+    transition: 1s;
+}
+
+.linesvg {
+    transition: 5s;
+    transition-duration: 2s;
+}
+
