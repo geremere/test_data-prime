@@ -20,8 +20,7 @@
 }
 
 .inputFields {
-    display: none;
-
+    display: block;
 }
 
 .countOfDots {
@@ -55,37 +54,34 @@
     outline: none;
 }
 
-.choice {
-    margin: 10px;
-    background-color: rgba(180, 180, 180, 0.4);
-    height: 50px;
-    color: #222222;
-    font-size: 25px;
-    width: 200px;
-    border-radius: 4px;
-    border: 1px solid rgba(90, 90, 90, 0.51);
-    outline: none;
-}
-
-.choice:hover {
-    background-color: rgba(128, 89, 88, 0.5) !important;
-}
-
 .enter:hover {
     background-color: rgba(115, 115, 115, 0.65);
 }
 
 .plot {
-    display: block;
+    display: none;
 }
 
 .plotDetails {
     position: relative;
-    border: 1px solid red;
     transition: all 5s ease-in-out;
     -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
     -moz-transition: all 1s ease-in-out; /** Firefox **/
     -o-transition: all 1s ease-in-out;
+}
+.back{
+    position: relative;
+    background-color: rgba(115, 115, 115, 0.51);
+    height: 35px;
+    color: #222222;
+    font-size: 25px;
+    width: 250px;
+    border-radius: 4px;
+    border: 1px solid rgba(90, 90, 90, 0.51);
+    outline: none;
+}
+.back:hover {
+    background-color: rgba(115, 115, 115, 0.65);
 }
 
 .point {

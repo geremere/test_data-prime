@@ -119,14 +119,6 @@ class PlotCanvas extends Component {
                 }
             })
         }
-        // } else if (num < this.state.num) {
-        //     this.state.points.forEach((itemP, indexP) => {
-        //         if (indexP < num)
-        //             points.push(itemP)
-        //     });
-        // } else {
-        //     points = this.state.points;
-        // }
         await this.setState({
             nextpos: nextpos,
             num: num,

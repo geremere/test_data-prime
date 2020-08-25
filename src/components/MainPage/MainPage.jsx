@@ -11,7 +11,7 @@ class MainPage extends Component {
         };
         this.handleCountOfDotsChange = this.handleCountOfDotsChange.bind(this);
         this.handleCountOfDots = this.handleCountOfDots.bind(this);
-        this.handleChoiceClick = this.handleChoiceClick.bind(this);
+        this.handleBack =this.handleBack.bind(this);
     }
 
     async handleCountOfDotsChange(event) {
@@ -29,21 +29,17 @@ class MainPage extends Component {
             document.getElementById("inputFields").style.display = 'none';
             document.getElementById("plot").style.display = "block";
         } else
-            alert("please input count of dots from 2 to 10 for plot")
+            alert("please input count of dots from 2 to 10 for plot or if you want random count of point in every turn stay field empty")
+    }
+    async handleBack(){
+        document.getElementById("inputFields").style.display = 'block';
+        document.getElementById("plot").style.display = "none";
+        await this.setState({
+            countOfDots:0
+        })
     }
 
-    handleChoiceClick(event) {
-        debugger;
-        if (event.target.id == "cnv") {
-            document.getElementById("cnv").style.backgroundColor = " rgba(128, 89, 88, 0.5)";
-            document.getElementById("svg").style.backgroundColor = " rgba(180, 180, 180, 0.4)";
-        } else {
-            document.getElementById("svg").style.backgroundColor = " rgba(128, 89, 88, 0.5)";
-            document.getElementById("cnv").style.backgroundColor = " rgba(180, 180, 180, 0.4)";
 
-        }
-
-    }
 
 
     render() {
@@ -57,35 +53,25 @@ class MainPage extends Component {
                     <div id="inputFields" className={style.inputFields}>
                         <div className={style.headText}>Entered values</div>
                         <input type="number" min="2" max="10"
-                               placeholder="input here count of dots for plot from 2 to 10"
+                               placeholder="input here 2 to 10 or 0 for random count of point every click"
                                className={style.countOfDots} onChange={this.handleCountOfDotsChange}/>
-                        <br/>
-                        <button id="cnv" className={style.choice} onClick={this.handleChoiceClick}> Canvas</button>
-                        <button id="svg" className={style.choice} onClick={this.handleChoiceClick}>SVG</button>
                         <br/>
                         <button onClick={this.handleCountOfDots} className={style.enter}>Draw plot</button>
 
                     </div>
                     {/*this block for plot. It have parameters from input field*/}
                     <div id="plot" className={style.plot}>
-                        {/*<PlotSVG num={this.state.countOfDots}/>*/}
-                        <PlotCanvas num={this.state.countOfDots}/>
+                        <button className={style.back} onClick={this.handleBack}>Back</button>
+                        {/*<PlotSVG num={this.state.countOfDots}/>
+                        Не вышло сделать анимацию линий, так что пришлось оставить на таком этапе,
+                        но выполнена работа на canvas*/}
+                        <PlotCanvas  num={this.state.countOfDots}/>
                     </div>
                 </div>
             </div>
         )
     }
 }
-
-function InputFields() {
-    return (
-        <div>
-
-        </div>
-    )
-
-}
-
 
 
 export default MainPage;
