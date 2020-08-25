@@ -7,7 +7,7 @@ class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            countOfDots: 10
+            countOfDots: 0
         };
         this.handleCountOfDotsChange = this.handleCountOfDotsChange.bind(this);
         this.handleCountOfDots = this.handleCountOfDots.bind(this);
