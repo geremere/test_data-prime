@@ -53,7 +53,7 @@ class MainPage extends Component {
                     <div id="inputFields" className={style.inputFields}>
                         <div className={style.headText}>Entered values</div>
                         <input type="number" min="2" max="10"
-                               placeholder="input here 2 to 10 or 0 for random count of point every click"
+                               placeholder="input here 2 to 10 or stay empty for random count of point every click"
                                className={style.countOfDots} onChange={this.handleCountOfDotsChange}/>
                         <br/>
                         <button onClick={this.handleCountOfDots} className={style.enter}>Draw plot</button>
