@@ -17,6 +17,7 @@ class PlotCanvas extends Component {
         this.draw = this.draw.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.isEnd = this.isEnd.bind(this);
+        this.update = this.update.bind(this);
     }
 
     isEnd(arr) {
@@ -113,10 +114,10 @@ class PlotCanvas extends Component {
     async handleUpdate(event) {
         let nextpos = [];
         let num;
-        if (this.props.num === 0)
+        if (this.props.num == 0)
             num = parseInt(Math.random() * 9 + 2);
         else
-            num = this.state.num;
+            num = this.props.num;
         for (let i = 0; i < num; i++) {
             nextpos.push([parseInt(25 + (800 / num) * i), parseInt(Math.random() * 460 + 25)]);
         }
@@ -144,51 +145,63 @@ class PlotCanvas extends Component {
         await setTimeout(this.draw, 10);
     }
 
-
-    async componentDidMount() {
-        if (this.cnv.getContext) {
-            if (this.props.num === 0)
-                await this.setState({
-                    num: parseInt(Math.random() * 8 + 2)
-                });
-            else
-                await this.setState({
-                    num: this.props.num
-                });
-
-            let ctx = this.cnv.getContext("2d");
-            ctx.beginPath();
-            ctx.moveTo(5, 5);
-            ctx.lineTo(5, 495);
-            ctx.lineTo(795, 495);
-            ctx.stroke();
-            let prev;
-            let points = [];
-            for (let i = 0; i < this.state.num; i++) {
-                const y = parseInt(Math.random() * (460) + 25);
-                const x = parseInt(25 + (800 / this.state.num) * i);
-                if (i !== 0) {
-                    ctx.beginPath();
-                    ctx.moveTo(parseInt(25 + (800 / this.state.num) * (i - 1)), prev);
-                    ctx.lineTo(x, y);
-                    ctx.stroke();
-                }
-                points.push([x, y]);
-                prev = y;
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-                ctx.arc(x, y, 5, 0, Math.PI * 2, true);
-                ctx.fill();
-            }
+    async update() {
+        if (this.props.num === 0) {
+            debugger;
             await this.setState({
-                points: points
-            })
+                num: parseInt(Math.random() * 8 + 2)
+            });
+        } else {
+            debugger;
+            await this.setState({
+                num: this.props.num
+            });
+        }
+
+        let ctx = this.cnv.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(5, 5);
+        ctx.lineTo(5, 495);
+        ctx.lineTo(795, 495);
+        ctx.stroke();
+        let prev;
+        let points = [];
+        for (let i = 0; i < this.state.num; i++) {
+            const y = parseInt(Math.random() * (460) + 25);
+            const x = parseInt(25 + (800 / this.state.num) * i);
+            if (i !== 0) {
+                ctx.beginPath();
+                ctx.moveTo(parseInt(25 + (800 / this.state.num) * (i - 1)), prev);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+            points.push([x, y]);
+            prev = y;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.arc(x, y, 5, 0, Math.PI * 2, true);
+            ctx.fill();
+        }
+        await this.setState({
+            points: points
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.cnv.getContext && this.props.num !== prevProps.num) {
+            let ctx = this.cnv.getContext("2d");
+            ctx.save();
+            ctx.clearRect(10, 10, 780, 480);
+            this.update();
         }
     }
 
+    componentDidMount() {
+        if (this.cnv.getContext)
+            this.update();
+    }
+
     render() {
-
-
         return (
             <canvas ref={this.setCanvasLink} height="500" width="800" className={style.plotDetails}
                     onClick={this.handleUpdate}/>

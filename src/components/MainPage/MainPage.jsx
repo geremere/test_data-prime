@@ -7,7 +7,8 @@ class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            countOfDots: 0
+            countOfDots: 0,
+            isAppears:false
         };
         this.handleCountOfDotsChange = this.handleCountOfDotsChange.bind(this);
         this.handleCountOfDots = this.handleCountOfDots.bind(this);
@@ -24,18 +25,22 @@ class MainPage extends Component {
             event.target.value = value == "" || value == 1 ? value : this.state.countOfDots;
     }
 
-    handleCountOfDots(event) {
+    async handleCountOfDots(event) {
         if (this.state.countOfDots != 1) {
+            await this.setState({
+                isAppears:true
+            });
             document.getElementById("inputFields").style.display = 'none';
             document.getElementById("plot").style.display = "block";
         } else
             alert("please input count of dots from 2 to 10 for plot or if you want random count of point in every turn stay field empty")
     }
+
     async handleBack(){
         document.getElementById("inputFields").style.display = 'block';
         document.getElementById("plot").style.display = "none";
         await this.setState({
-            countOfDots:0
+            isAppears:false
         })
     }
 
@@ -43,8 +48,6 @@ class MainPage extends Component {
 
 
     render() {
-        let dots = this.state.countOfDots;
-
         return (
             <div className={style.mainWrapper}>
                 <div className={style.headText}>Test task for Data-Prime</div>
@@ -65,7 +68,7 @@ class MainPage extends Component {
                         {/*<PlotSVG num={this.state.countOfDots}/>
                         Не вышло сделать анимацию линий, так что пришлось оставить на таком этапе,
                         но выполнена работа на canvas*/}
-                        <PlotCanvas  num={this.state.countOfDots}/>
+                        <PlotCanvas  num={this.state.countOfDots} isappears={this.state.isAppears}/>
                     </div>
                 </div>
             </div>
