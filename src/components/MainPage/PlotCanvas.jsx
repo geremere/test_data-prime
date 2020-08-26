@@ -70,7 +70,6 @@ class PlotCanvas extends Component {
                             point = itemP;
                     });
                     let stepY = 0;
-                    debugger;
                     if (item[1] < point[1])
                         stepY = 1;
                     else if (item[1] > point[1])
@@ -92,7 +91,6 @@ class PlotCanvas extends Component {
                     ctx.moveTo(item[0] + stepX, item[1] + stepY);
                     ctx.arc(item[0] + stepX, item[1] + stepY, 5, 0, Math.PI * 2, true);
                     ctx.fill();
-                    debugger;
                     isEnd.push(stepX === 0 && stepY === 0);
                     return [item[0] + stepX, item[1] + stepY];
                 }
@@ -100,7 +98,6 @@ class PlotCanvas extends Component {
             await this.setState({
                 points: newPoints
             });
-            debugger;
             if (!this.isEnd(isEnd))
                 await setTimeout(this.draw, 10);
             else
@@ -146,6 +143,7 @@ class PlotCanvas extends Component {
     }
 
     async update() {
+        debugger;
         if (this.props.num === 0) {
             debugger;
             await this.setState({
@@ -187,8 +185,8 @@ class PlotCanvas extends Component {
         })
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.cnv.getContext && this.props.num !== prevProps.num) {
+    componentDidUpdate(prevState) {
+        if (this.cnv.getContext && this.props.num !== prevState.num) {
             let ctx = this.cnv.getContext("2d");
             ctx.save();
             ctx.clearRect(10, 10, 780, 480);

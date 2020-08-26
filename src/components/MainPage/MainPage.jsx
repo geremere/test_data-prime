@@ -8,27 +8,27 @@ class MainPage extends Component {
         super(props);
         this.state = {
             countOfDots: 0,
-            isAppears:false
+            isAppears: false
         };
         this.handleCountOfDotsChange = this.handleCountOfDotsChange.bind(this);
         this.handleCountOfDots = this.handleCountOfDots.bind(this);
-        this.handleBack =this.handleBack.bind(this);
+        this.handleBack = this.handleBack.bind(this);
     }
 
     async handleCountOfDotsChange(event) {
         let value = event.target.value;
-        if (value >= 1 && value <= 10 && value != this.state.countOfDots)
+        if (value <= 10 && value != this.state.countOfDots) {
+            value =value==""?0:value;
             await this.setState({
                 countOfDots: value
             });
-        else
-            event.target.value = value == "" || value == 1 ? value : this.state.countOfDots;
+        }
     }
 
     async handleCountOfDots(event) {
         if (this.state.countOfDots != 1) {
             await this.setState({
-                isAppears:true
+                isAppears: true
             });
             document.getElementById("inputFields").style.display = 'none';
             document.getElementById("plot").style.display = "block";
@@ -36,15 +36,13 @@ class MainPage extends Component {
             alert("please input count of dots from 2 to 10 for plot or if you want random count of point in every turn stay field empty")
     }
 
-    async handleBack(){
+    async handleBack() {
         document.getElementById("inputFields").style.display = 'block';
         document.getElementById("plot").style.display = "none";
         await this.setState({
-            isAppears:false
+            isAppears: false
         })
     }
-
-
 
 
     render() {
@@ -56,7 +54,7 @@ class MainPage extends Component {
                     <div id="inputFields" className={style.inputFields}>
                         <div className={style.headText}>Entered values</div>
                         <input type="number" min="2" max="10"
-                               placeholder="input here 2 to 10 or stay empty for random count of point every click"
+                               placeholder="input here 2 to 10, stay empty or input 0 for random count of point every click"
                                className={style.countOfDots} onChange={this.handleCountOfDotsChange}/>
                         <br/>
                         <button onClick={this.handleCountOfDots} className={style.enter}>Draw plot</button>
@@ -68,7 +66,7 @@ class MainPage extends Component {
                         {/*<PlotSVG num={this.state.countOfDots}/>
                         Не вышло сделать анимацию линий, так что пришлось оставить на таком этапе,
                         но выполнена работа на canvas*/}
-                        <PlotCanvas  num={this.state.countOfDots} isappears={this.state.isAppears}/>
+                        <PlotCanvas num={this.state.countOfDots} isappears={this.state.isAppears}/>
                     </div>
                 </div>
             </div>
