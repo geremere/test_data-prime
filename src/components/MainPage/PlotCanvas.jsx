@@ -143,7 +143,6 @@ class PlotCanvas extends Component {
     }
 
     async update() {
-        debugger;
         if (this.props.num === 0) {
             debugger;
             await this.setState({
